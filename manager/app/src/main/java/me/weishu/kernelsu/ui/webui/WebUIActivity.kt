@@ -14,11 +14,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.webkit.WebViewAssetLoader
 import com.topjohnwu.superuser.Shell
 import me.weishu.kernelsu.ui.util.createRootShell
-import me.weishu.kernelsu.ui.viewmodel.ModuleViewModel
 import java.io.File
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -95,8 +93,6 @@ class WebUIActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-    	val viewModel = viewModel<ModuleViewModel>()
-    	viewModel.fetchModuleList()
         runCatching { rootShell?.close() }
     }
 }
