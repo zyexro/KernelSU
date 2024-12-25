@@ -651,7 +651,10 @@ fun ModuleItem(
                 if (module.hasWebUi) {
                     FilledTonalButton(
                         modifier = Modifier.defaultMinSize(52.dp, 32.dp),
-                        onClick = { onClick(module) },
+                        onClick = {
+                        	onClick(module)
+                        	viewModel.markNeedRefresh()
+                        },
                         interactionSource = interactionSource,
                         contentPadding = ButtonDefaults.TextButtonContentPadding
                     ) {
