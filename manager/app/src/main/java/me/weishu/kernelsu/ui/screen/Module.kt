@@ -457,7 +457,6 @@ private fun ModuleList(
 
                 else -> {
                     items(viewModel.moduleList) { module ->
-                        val isChecked = module.enabled
                         val scope = rememberCoroutineScope()
                         val updatedModule by produceState(initialValue = Triple("", "", "")) {
                             scope.launch(Dispatchers.IO) {
@@ -468,7 +467,6 @@ private fun ModuleList(
                         ModuleItem(
                             navigator = navigator,
                             module = module,
-                            isChecked = isChecked,
                             updateUrl = updatedModule.first,
                             onUninstallClicked = {
                                 scope.launch { onModuleUninstallClicked(module) }
@@ -477,7 +475,7 @@ private fun ModuleList(
                                 scope.launch {
                                     val success = loadingDialog.withLoading {
                                         withContext(Dispatchers.IO) {
-                                            toggleModule(module.dirId, !isChecked)
+                                            toggleModule(module.dirId, !module.enabled)
                                         }
                                     }
                                     if (success) {
@@ -493,7 +491,7 @@ private fun ModuleList(
                                             reboot()
                                         }
                                     } else {
-                                        val message = if (isChecked) failedDisable else failedEnable
+                                        val message = if (module.enabled) failedDisable else failedEnable
                                         snackBarHost.showSnackbar(message.format(module.name))
                                     }
                                 }
@@ -529,7 +527,6 @@ private fun ModuleList(
 fun ModuleItem(
     navigator: DestinationsNavigator,
     module: ModuleViewModel.ModuleInfo,
-    isChecked: Boolean,
     updateUrl: String,
     onUninstallClicked: (ModuleViewModel.ModuleInfo) -> Unit,
     onCheckChanged: (Boolean) -> Unit,
@@ -549,7 +546,7 @@ fun ModuleItem(
                 .run {
                     if (module.hasWebUi) {
                         toggleable(
-                            value = isChecked,
+                            value = module.enabled,
                             interactionSource = interactionSource,
                             role = Role.Button,
                             indication = indication,
@@ -605,7 +602,7 @@ fun ModuleItem(
                 ) {
                     Switch(
                         enabled = !module.update,
-                        checked = isChecked,
+                        checked = module.enabled,
                         onCheckedChange = onCheckChanged,
                         interactionSource = if (!module.hasWebUi) interactionSource else null
                     )
@@ -766,5 +763,5 @@ fun ModuleItemPreview() {
         hasActionScript = false,
         dirId = "dirId"
     )
-    ModuleItem(EmptyDestinationsNavigator, module, true, "", {}, {}, {}, {})
+    ModuleItem(EmptyDestinationsNavigator, module, "", {}, {}, {}, {})
 }
