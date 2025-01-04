@@ -36,7 +36,7 @@ fn mount_tmpfs(dest: impl AsRef<Path>) -> Result<()> {
 
 #[cfg(not(any(target_os = "linux", target_os = "android")))]
 fn mount_tmpfs(dest: impl AsRef<Path>) -> Result<()> {
-    Ok(())
+    unimplemented!()
 }
 
 pub fn on_post_data_fs() -> Result<()> {
