@@ -41,22 +41,18 @@ endif
 ifeq ($(shell grep -q "get_cred_rcu" $(srctree)/include/linux/cred.h; echo $$?),0)
 ccflags-y += -DKSU_COMPAT_GET_CRED_RCU
 else
-$(info -- Your kernel does not support get_cred_rcu, please backport it.)
+$(info -- Your kernel does not support get_cred_rcu, its recommended to backport it.)
 $(info -- How to backport: https://github.com/tiann/KernelSU/pull/2320#issuecomment-2564232958)
 $(info -- Fallback to old changes.)
 endif
 
-# tiann/KernelSU
+ifndef KSU_EXPECTED_SIZE
 KSU_EXPECTED_SIZE := 0x033b
+endif
+
+ifndef KSU_EXPECTED_HASH
 KSU_EXPECTED_HASH := c371061b19d8c7d7d6133c6a9bafe198fa944e50c1b31c9d8daa8d7f1fc2d2d6
-
-# rsuntk/KernelSU
-KSU_EXPECTED_SIZE_CUST := 0x396
-KSU_EXPECTED_HASH_CUST := f415f4ed9435427e1fdf7f1fccd4dbc07b3d6b8751e4dbcec6f19671f427870b
-
-# 5ec1cff/KernelSU
-KSU_EXPECTED_SIZE_5EC1CFF := 384
-KSU_EXPECTED_HASH_5EC1CFF := 7e0c6d7278a3bb8e364e0fcba95afaf3666cf5ff3c245a3b63c8833bd0445cc4
+endif
 
 ifdef KSU_MANAGER_PACKAGE
 ccflags-y += -DKSU_MANAGER_PACKAGE=\"$(KSU_MANAGER_PACKAGE)\"
@@ -69,10 +65,6 @@ $(info -- Supported Unofficial Manager: rsuntk (Non-GKI), 5ec1cff (GKI))
 
 ccflags-y += -DEXPECTED_SIZE=$(KSU_EXPECTED_SIZE)
 ccflags-y += -DEXPECTED_HASH=\"$(KSU_EXPECTED_HASH)\"
-ccflags-y += -DEXPECTED_SIZE_CUST=$(KSU_EXPECTED_SIZE_CUST)
-ccflags-y += -DEXPECTED_HASH_CUST=\"$(KSU_EXPECTED_HASH_CUST)\"
-ccflags-y += -DEXPECTED_SIZE_5EC1CFF=$(KSU_EXPECTED_SIZE_5EC1CFF)
-ccflags-y += -DEXPECTED_HASH_5EC1CFF=\"$(KSU_EXPECTED_HASH_5EC1CFF)\"
 
 ifeq ($(shell grep -q "int path_umount" $(srctree)/fs/namespace.c; echo $$?),0)
 ccflags-y += -DKSU_UMOUNT
