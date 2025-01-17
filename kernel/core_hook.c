@@ -133,11 +133,32 @@ static void disable_seccomp(void)
 #endif
 }
 
+/* 
+ * If kernel devs not backport this, we'll enable this function
+ * (Must put this on kernel_compat.c, but anyway)
+ */
+#if !defined(KSU_GET_CRED_RCU)
+static inline const struct cred *get_cred_rcu(const struct cred *cred)
+{
+	struct cred *nonconst_cred = (struct cred *) cred;
+	if (!cred)
+		return NULL;
+#ifdef KSU_COMPAT_LONG_INC
+	if (!atomic_long_inc_not_zero(&nonconst_cred->usage))
+#else
+	if (!atomic_inc_not_zero(&nonconst_cred->usage))
+#endif		
+		return NULL;
+	validate_creds(cred);
+	nonconst_cred->non_rcu = 0;
+	return cred;
+}
+#endif
+
 void escape_to_root(void)
 {
 	struct cred *cred;
 
-#ifdef KSU_GET_CRED_RCU
 	rcu_read_lock();
 
 	do {
@@ -150,14 +171,6 @@ void escape_to_root(void)
 		rcu_read_unlock();
 		return;
 	}
-#else
-	cred = (struct cred *)__task_cred(current);
-
-	if (cred->euid.val == 0) {
-		pr_warn("Already root, don't escape!\n");
-		return;
-	}
-#endif
 
 	struct root_profile *profile = ksu_get_root_profile(cred->uid.val);
 
@@ -192,9 +205,7 @@ void escape_to_root(void)
 
 	setup_groups(profile, cred);
 	
-#ifdef KSU_GET_CRED_RCU
 	rcu_read_unlock();
-#endif
 
 	// Refer to kernel/seccomp.c: seccomp_set_mode_strict
 	// When disabling Seccomp, ensure that current->sighand->siglock is held during the operation.
@@ -487,15 +498,11 @@ static bool should_umount(struct path *path)
 
 static void ksu_umount_mnt(struct path *path, int flags)
 {
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 9, 0) || defined(KSU_UMOUNT)
 	int err = path_umount(path, flags);
 	if (err) {
-		pr_info("umount %s failed, ret: %d\n", path->dentry->d_iname, err);
+		pr_info("umount %s failed, ret: %d\n",
+			path->dentry->d_iname, err);
 	}
-#else
-#error "Backporting path_umount is needed!"
-#error "Read: https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#how-to-backport-path-umount"
-#endif
 }
 
 static void try_umount(const char *mnt, bool check_mnt, int flags)
