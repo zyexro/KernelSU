@@ -6,8 +6,8 @@ A Kernel-based root solution for Android devices.
 
 > [!NOTE]
 > Official KernelSU support for Non-GKI kernels has been ended.
-> This is unofficial forks, all rights reserved to [@tiann](https://github.com/tiann)
 >
+> This is unofficial forks, all rights reserved to [@tiann](https://github.com/tiann)
 
 [![Latest release](https://img.shields.io/github/v/release/rsuntk/KernelSU?label=Release&logo=github)](https://github.com/tiann/KernelSU/releases/latest)
 [![Weblate](https://img.shields.io/badge/Localization-Weblate-teal?logo=weblate)](https://hosted.weblate.org/engage/kernelsu)
@@ -19,6 +19,11 @@ A Kernel-based root solution for Android devices.
 ```
 curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
 ```
+
+## Hook method
+
+1. `KPROBES` hook
+2. Manual hook (For GKI: Use `#ifdef CONFIG_KSU_MANUAL_HOOK` instead of `#ifdef CONFIG_KSU` for guard certain kernelsu hook)
 
 ## Features
 
