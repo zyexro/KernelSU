@@ -4,6 +4,11 @@
 
 A Kernel-based root solution for Android devices.
 
+> [!NOTE]
+> Official KernelSU support for Non-GKI kernels has been ended.
+> This is unofficial forks, all rights reserved to [@tiann](https://github.com/tiann)
+>
+
 [![Latest release](https://img.shields.io/github/v/release/rsuntk/KernelSU?label=Release&logo=github)](https://github.com/tiann/KernelSU/releases/latest)
 [![Weblate](https://img.shields.io/badge/Localization-Weblate-teal?logo=weblate)](https://hosted.weblate.org/engage/kernelsu)
 [![Channel](https://img.shields.io/badge/Follow-Telegram-blue.svg?logo=telegram)](https://t.me/KernelSU)
@@ -18,7 +23,7 @@ curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.s
 ## Features
 
 1. Kernel-based `su` and root access management.
-2. Module system based on [OverlayFS](https://en.wikipedia.org/wiki/OverlayFS).
+2. Module system based on [5ec1cff's Magic Mount API on KernelSU](https://github.com/5ec1cff/KernelSU)
 3. [App Profile](https://kernelsu.org/guide/app-profile.html): Lock up the root power in a cage.
 
 ## Compatibility State
@@ -27,7 +32,7 @@ KernelSU officially supports Android GKI 2.0 devices (kernel 5.10+). Older kerne
 
 With this, WSA, ChromeOS, and container-based Android are all supported.
 
-Currently, only `arm64-v8a` and `x86_64` are supported.
+Currently, only `arm64-v8a` are supported.
 
 ## Usage
 
