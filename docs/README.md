@@ -30,10 +30,11 @@ curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.s
 1. Kernel-based `su` and root access management.
 2. Module system based on [5ec1cff's Magic Mount API on KernelSU](https://github.com/5ec1cff/KernelSU)
 3. [App Profile](https://kernelsu.org/guide/app-profile.html): Lock up the root power in a cage.
+4. Bringing back non-GKI/GKI 1.0 support
 
 ## Compatibility State
 
-KernelSU officially supports Android GKI 2.0 devices (kernel 5.10+). Older kernels (4.14+) are also compatible, but the kernel will have to be built manually.
+KernelSU (before v1.0.0) officially supports Android GKI 2.0 devices (kernel 5.10+). Older kernels (4.14+) are also compatible, but the kernel will have to be built manually.
 
 With this, WSA, ChromeOS, and container-based Android are all supported.
 
@@ -68,4 +69,4 @@ For information on reporting security vulnerabilities in KernelSU, see [SECURITY
 - [Magisk](https://github.com/topjohnwu/Magisk): the powerful root tool.
 - [genuine](https://github.com/brevent/genuine/): apk v2 signature validation.
 - [Diamorphine](https://github.com/m0nad/Diamorphine): some rootkit skills.
-- [5ec1cff](https://github.com/5ec1cff): magic_mount implementation.
+- [5ec1cff](https://github.com/5ec1cff): magic mount api implementation.
