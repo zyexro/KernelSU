@@ -3,7 +3,7 @@ use crate::module::{handle_updated_modules, prune_modules};
 use crate::{assets, defs, ksucalls, restorecon, utils};
 use anyhow::{Context, Result};
 use log::{info, warn};
-use rustix::{fd::AsFd, fs::CWD, fs::MountFlags, mount::*};
+use rustix::{fd::AsFd, fs::MountFlags, fs::CWD, mount::*};
 use std::path::Path;
 
 // https://github.com/tiann/KernelSU/blob/v0.9.5/userspace/ksud/src/mount.rs#L158
@@ -108,7 +108,7 @@ pub fn on_post_data_fs() -> Result<()> {
     } else {
         info!("no tmpfs requested");
     }
-    
+
     // exec modules post-fs-data scripts
     // TODO: Add timeout
     if let Err(e) = crate::module::exec_stage_script("post-fs-data", true) {
