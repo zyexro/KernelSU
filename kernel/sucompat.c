@@ -295,4 +295,7 @@ void ksu_sucompat_exit()
 		destroy_kprobe(&su_kps[i]);
 	}
 }
+#else // We still have non-GKI support!
+void ksu_sucompat_init() {}
+void ksu_sucompat_exit() {}
 #endif
