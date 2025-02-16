@@ -79,7 +79,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.weishu.kernelsu.BuildConfig
 import me.weishu.kernelsu.Natives
-import me.weishu.kernelsu.*
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.component.AboutDialog
 import me.weishu.kernelsu.ui.component.ConfirmResult
@@ -171,12 +170,8 @@ fun SettingScreen(navigator: DestinationsNavigator) {
                     umountChecked = it
                 }
             }
-            
-            val kernelVersion = getKernelVersion()
-            val lkmMode = Natives.version >= Natives.MINIMAL_SUPPORTED_KERNEL_LKM && Natives.isLkmMode
-            val suCompatToggle = Natives.version >= Natives.MINIMAL_SUPPORTED_SU_COMPAT && kernelVersion.isGKI()
 
-            if (lkmMode || suCompatToggle) {
+            if (Natives.version >= Natives.MINIMAL_SUPPORTED_SU_COMPAT) {
                 var isSuDisabled by rememberSaveable {
                     mutableStateOf(!Natives.isSuEnabled())
                 }
@@ -333,6 +328,7 @@ fun SettingScreen(navigator: DestinationsNavigator) {
                 )
             }
 
+            val lkmMode = Natives.version >= Natives.MINIMAL_SUPPORTED_KERNEL_LKM && Natives.isLkmMode
             if (lkmMode) {
                 UninstallItem(navigator) {
                     loadingDialog.withLoading(it)
