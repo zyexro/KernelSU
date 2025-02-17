@@ -9,7 +9,7 @@ A Kernel-based root solution for Android devices.
 >
 > This is unofficial forks, all rights reserved to [@tiann](https://github.com/tiann)
 
-[![Latest release](https://img.shields.io/github/v/release/rsuntk/KernelSU?label=Release&logo=github)](https://github.com/tiann/KernelSU/releases/latest)
+[![Latest release](https://img.shields.io/github/v/release/rsuntk/KernelSU?label=Release&logo=github)](https://github.com/rsuntk/KernelSU/releases/latest)
 [![Weblate](https://img.shields.io/badge/Localization-Weblate-teal?logo=weblate)](https://hosted.weblate.org/engage/kernelsu)
 [![Channel](https://img.shields.io/badge/Follow-Telegram-blue.svg?logo=telegram)](https://t.me/KernelSU)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-orange.svg?logo=gnu)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
@@ -45,10 +45,6 @@ Currently, only `arm64-v8a` are supported.
 - [Installation Instruction](https://kernelsu.org/guide/installation.html)
 - [How to build?](https://kernelsu.org/guide/how-to-build.html)
 - [Official Website](https://kernelsu.org/)
-
-## Translation
-
-To help translate KernelSU or improve existing translations, please use [Weblate](https://hosted.weblate.org/engage/kernelsu/). PR of Manager's translation is no longer accepted, because it will conflict with Weblate.
 
 ## Discussion
 
