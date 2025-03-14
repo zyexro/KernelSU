@@ -548,6 +548,7 @@ static void try_umount(const char *mnt, bool check_mnt, int flags)
 		return;
 	}
 
+	pr_info("%s: %s\n", __func__, mnt);
 	ksu_umount_mnt(&path, flags);
 }
 
