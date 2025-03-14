@@ -68,7 +68,7 @@ endif
 
 # This feature was introduced in linux 5.0-rc1
 ifeq ($(shell grep -q "get_cred_rcu" $(srctree)/include/linux/cred.h; echo $$?),0)
-ccflags-y += -DKSU_COMPAT_GET_CRED_RCU
+ccflags-y += -DKSU_COMPAT_HAS_GET_CRED_RCU
 else
 # https://github.com/gregkh/linux/commit/123e44b9a49a42ff5313ec65256f1540d7c52fa0
 ifeq ($(shell grep -q "atomic_long_inc" $(srctree)/include/linux/cred.h; echo $$?),0)

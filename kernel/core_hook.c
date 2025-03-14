@@ -1,5 +1,4 @@
 #include <linux/capability.h>
-#include <linux/cred.h>
 #include <linux/dcache.h>
 #include <linux/err.h>
 #include <linux/init.h>
@@ -44,11 +43,6 @@
 #include "throne_tracker.h"
 #include "throne_tracker.h"
 #include "kernel_compat.h"
-
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 0, 0) ||	\
-	defined(KSU_COMPAT_GET_CRED_RCU)
-#define KSU_GET_CRED_RCU
-#endif
 
 static bool ksu_module_mounted = false;
 
@@ -136,28 +130,6 @@ static void disable_seccomp(void)
 #else
 #endif
 }
-
-/* 
- * If kernel devs not backport this, we'll enable this function
- * (Must put this on kernel_compat.c, but anyway)
- */
-#ifndef KSU_GET_CRED_RCU
-static inline const struct cred *get_cred_rcu(const struct cred *cred)
-{
-	struct cred *nonconst_cred = (struct cred *) cred;
-	if (!cred)
-		return NULL;
-#ifdef KSU_COMPAT_ATOMIC_LONG
-	if (!atomic_long_inc_not_zero(&nonconst_cred->usage))
-#else
-	if (!atomic_inc_not_zero(&nonconst_cred->usage))
-#endif		
-		return NULL;
-	validate_creds(cred);
-	nonconst_cred->non_rcu = 0;
-	return cred;
-}
-#endif
 
 void escape_to_root(void)
 {
