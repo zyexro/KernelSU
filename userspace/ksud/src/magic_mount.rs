@@ -1,4 +1,6 @@
-use crate::defs::{DISABLE_FILE_NAME, KSU_MOUNT_SOURCE, MODULE_DIR, SKIP_MOUNT_FILE_NAME};
+use crate::defs::{
+    DISABLE_FILE_NAME, KSU_MOUNT_SOURCE, MODULE_DIR, SKIP_MOUNT_FILE_NAME,
+};
 use crate::magic_mount::NodeFileType::{Directory, RegularFile, Symlink, Whiteout};
 use crate::restorecon::{lgetfilecon, lsetfilecon};
 use crate::utils::{ensure_dir_exists, get_work_dir};
@@ -15,8 +17,8 @@ use std::collections::HashMap;
 use std::collections::hash_map::Entry;
 use std::fs;
 use std::fs::{DirEntry, FileType, create_dir, create_dir_all, read_dir, read_link};
-use std::path::{Path, PathBuf};
 use std::os::unix::fs::{FileTypeExt, symlink};
+use std::path::{Path, PathBuf};
 
 const REPLACE_DIR_XATTR: &str = "trusted.overlay.opaque";
 
