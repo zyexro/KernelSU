@@ -245,7 +245,7 @@ static void nuke_ext4_sysfs() {
 	}
 
 	ext4_unregister_sysfs(sb);
- 	path_put(&path);
+	path_put(&path);
 }
 
 int ksu_handle_prctl(int option, unsigned long arg2, unsigned long arg3,
@@ -525,8 +525,11 @@ static void ksu_umount_mnt(struct path *path, int flags)
 {
 	int err = path_umount(path, flags);
 	if (err) {
-		pr_info("umount %s failed, ret: %d\n",
+		pr_err("umount %s failed, err: %d\n",
 			path->dentry->d_iname, err);
+	} else {
+		pr_info("umount %s success\n",
+			path->dentry->d_iname);
 	}
 }
 
@@ -548,7 +551,6 @@ static void try_umount(const char *mnt, bool check_mnt, int flags)
 		return;
 	}
 
-	pr_info("%s: %s\n", __func__, mnt);
 	ksu_umount_mnt(&path, flags);
 }
 
