@@ -23,12 +23,12 @@ curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.s
 ## Hook method
 
 1. **KPROBES hook:**
-    - Only support GKI (5.10 - 6.x) Kernels in this fork. All non-GKI kernels must use manual hook.
+    - Only support GKI (5.4 - 6.x) Kernels in this fork. All non-GKI kernels must use manual hook.
     - Used for Loadable Kernel Module (LKM)
     - Default hook method on GKI kernels.
     - Need `CONFIG_KPROBES=y`
 2. **Manual hook:**
-    - For GKI (5.10 - 6.x) Kernels, add `CONFIG_KSU_MANUAL_HOOK=y` to kernel defconfig make sure to use `#ifdef CONFIG_KSU_MANUAL_HOOK` instead of `#ifdef CONFIG_KSU` to guard KernelSU hook.
+    - For GKI (5.4 - 6.x) Kernels, add `CONFIG_KSU_MANUAL_HOOK=y` to kernel defconfig make sure to use `#ifdef CONFIG_KSU_MANUAL_HOOK` instead of `#ifdef CONFIG_KSU` to guard KernelSU hook.
     - Standard KernelSU hook: https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source
     - backslashxx's syscall manual hook: https://github.com/backslashxx/KernelSU/issues/5
 
