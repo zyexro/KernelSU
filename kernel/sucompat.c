@@ -292,35 +292,33 @@ static void destroy_kprobe(struct kprobe **kp_ptr)
 }
 
 static struct kprobe *su_kps[6];
+#endif
 
 // sucompat: permited process can execute 'su' to gain root access.
 void ksu_sucompat_init()
 {
+#ifdef CONFIG_KSU_KPROBES_HOOK
 	su_kps[0] = init_kprobe(SYS_EXECVE_SYMBOL, execve_handler_pre);
 	su_kps[1] = init_kprobe(SYS_EXECVE_COMPAT_SYMBOL, execve_handler_pre);
 	su_kps[2] = init_kprobe(SYS_FACCESSAT_SYMBOL, faccessat_handler_pre);
 	su_kps[3] = init_kprobe(SYS_NEWFSTATAT_SYMBOL, newfstatat_handler_pre);
 	su_kps[4] = init_kprobe(SYS_FSTATAT64_SYMBOL, newfstatat_handler_pre);
 	su_kps[5] = init_kprobe("pts_unix98_lookup", pts_unix98_lookup_pre);
+#else
+	ksu_sucompat_hook_state = true;
+	pr_info("ksu_sucompat init\n");
+#endif
 }
 
 void ksu_sucompat_exit()
 {
+#ifdef CONFIG_KSU_KPROBES_HOOK
 	int i;
 	for (i = 0; i < ARRAY_SIZE(su_kps); i++) {
 		destroy_kprobe(&su_kps[i]);
 	}
-}
-#else // We still have non-GKI support!
-void ksu_sucompat_init()
-{
-	ksu_sucompat_hook_state = true;
-	pr_info("ksu_sucompat init\n");
-}
-
-void ksu_sucompat_exit()
-{
+#else
 	ksu_sucompat_hook_state = false;
 	pr_info("ksu_sucompat exit\n");
-}
 #endif
+}
