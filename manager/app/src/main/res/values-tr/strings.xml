@@ -134,7 +134,6 @@
     <string name="settings_uninstall_permanent">Kalıcı olarak kaldır</string>
     <string name="settings_restore_stock_image">Stok imajı geri yükle</string>
     <string name="settings_uninstall_temporary_message">KernelSU\'yu geçici olarak kaldır, bir sonraki yeniden başlatmadan sonra orijinal durumuna geri yükle.</string>
-    <string name="settings_uninstall">Kaldır</string>
     <string name="settings_uninstall_permanent_message">KernelSU (Root ve tüm modüller) tamamen ve kalıcı olarak kaldırılıyor.</string>
     <string name="settings_restore_stock_image_message">Stok fabrika imajını geri yükler (eğer yedek varsa), genellikle OTA\'dan önce kullanılır; KernelSU\'yu kaldırmanız gerekiyorsa, lütfen \"Kalıcı olarak kaldır\" seçeneğini kullanın.</string>
     <string name="flashing">Flaşlanıyor</string>
