@@ -38,7 +38,7 @@ This fork have 32-bit support. Disable `CONFIG_KSU_64BIT`, `CONFIG_KPROBES` and 
 
 You should not disable KSU_64BIT option on 64-bit kernel and userspace! Otherwise unwanted things may happens!
 
-Use case: 32-bit userspace & kernel, 64-bit kernel & 32-bit userspace (armv8l).
+Use case: 64-bit kernel & 32-bit userspace (armv8l) only.
 
 ## Features
 
