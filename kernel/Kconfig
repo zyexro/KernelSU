@@ -17,7 +17,7 @@ config KSU_DEBUG
 
 config KSU_64BIT
 	bool "KernelSU 64bit compat"
-        depends on KSU && ARM64
+        depends on KSU && 64BIT
         default y
 	help
 	  Enable this if you have a 32-bit userspace or armv8l.
