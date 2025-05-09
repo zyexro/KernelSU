@@ -151,12 +151,16 @@ void apply_kernelsu_rules()
 #define CMD_GENFSCON 9
 
 // maximal is 7!!
-#ifdef CONFIG_KSU_64BIT
+#if defined(CONFIG_KSU_64BIT) && defined(CONFIG_64BIT)
 #define usize_val u64
-#define declare_char(a, x) char __user a = x
 #else
 #define usize_val u32
+#endif
+
+#if !defined(CONFIG_KSU_64BIT) && defined(CONFIG_64BIT)
 #define declare_char(a, x) char __user a = compat_ptr(x)
+#else
+#define declare_char(a, x) char __user a = x
 #endif
 
 struct sepol_data {
