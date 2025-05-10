@@ -39,7 +39,7 @@ endif
 
 # Check arch
 ifneq ($(strip $(CONFIG_KSU_64BIT),y)
-$(info -- KernelSU: Running in 32-bit mode.
+$(info -- KernelSU: Running in 32-bit mode.)
 endif
 
 # Checks hooks state
