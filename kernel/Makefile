@@ -38,7 +38,7 @@ $(error -- Backporting path_umount is mandatory !! Read: https://kernelsu.org/gu
 endif
 
 # Check arch
-ifneq ($(strip $(CONFIG_KSU_64BIT),y)
+ifneq ($(strip $(CONFIG_KSU_64BIT)),y)
 $(info -- KernelSU: Running in 32-bit mode.)
 endif
 
