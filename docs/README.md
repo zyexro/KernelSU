@@ -29,6 +29,7 @@ curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.s
     - Also used for Loadable Kernel Module (LKM)
     - Default hook method on GKI kernels.
     - Need `CONFIG_KSU_MANUAL_HOOK=n`
+    - Require CONFIG_KPROBES
 2. **Manual hook:**
     - Standard KernelSU hook: https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source
     - backslashxx's syscall manual hook: https://github.com/backslashxx/KernelSU/issues/5
