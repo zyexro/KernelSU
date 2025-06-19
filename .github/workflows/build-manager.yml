@@ -16,5 +16,6 @@ on:
 jobs:
   build-manager:
     uses: ./.github/workflows/build-manager-common.yml
+    secrets: inherit
     with:
       spoofed: false
