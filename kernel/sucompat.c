@@ -28,7 +28,7 @@
 static const char su[] = SU_PATH;
 static const char ksud_path[] = KSUD_PATH;
 
-extern void escape_to_root();
+extern void ksu_escape_to_root();
 
 bool ksu_sucompat_hook_state __read_mostly = true;
 
@@ -86,7 +86,7 @@ static int ksu_sucompat_user_common(const char __user **filename_user,
 	if (escalate) {
 		pr_info("%s su found\n", syscall_name);
 		*filename_user = ksud_user_path();
-		escape_to_root(); // escalate !!
+		ksu_escape_to_root(); // escalate !!
 	} else {
 		pr_info("%s su->sh!\n", syscall_name);
 		*filename_user = sh_user_path();
@@ -141,7 +141,7 @@ int ksu_handle_execveat_sucompat(int *fd, struct filename **filename_ptr,
 	pr_info("do_execveat_common su found\n");
 	memcpy((void *)filename->name, ksud_path, sizeof(ksud_path));
 
-	escape_to_root();
+	ksu_escape_to_root();
 
 	return 0;
 }
@@ -304,3 +304,4 @@ void ksu_sucompat_exit()
 	pr_info("ksu_sucompat exit\n");
 #endif
 }
+
